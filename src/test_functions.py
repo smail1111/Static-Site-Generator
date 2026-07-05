@@ -3,7 +3,7 @@ import unittest
 from functions import *
 from textnode import *
 
-class TestTextNode(unittest.TestCase):
+class TestFunctions(unittest.TestCase):
     def test_split_nodes_1(self):
         node = TextNode("**This sentence is bold**", TextType.TEXT)
         nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
