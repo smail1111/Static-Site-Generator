@@ -50,7 +50,7 @@ def extract_markdown_links(text):
 def split_nodes_image(old_nodes: list[TextNode]) -> list[TextNode]:
     new_nodes = []
     for old_node in old_nodes:
-        split = re.sub(r"\!\[.*?\]\(.*?\)", "_i_", old_node.text).split("_")
+        split = re.sub(r"\!\[.*?\]\(.*?\)", "~i~", old_node.text).split("~")
         
         if len(split) < 2:
             new_nodes.append(old_node)
@@ -77,7 +77,7 @@ def split_nodes_image(old_nodes: list[TextNode]) -> list[TextNode]:
 def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
     new_nodes = []
     for old_node in old_nodes:
-        split = re.sub(r"(?<!!)\[.*?\]\(.*?\)","_l_", old_node.text).split("_")
+        split = re.sub(r"(?<!!)\[.*?\]\(.*?\)","~l~", old_node.text).split("~")
         
         if len(split) < 2:
             new_nodes.append(old_node)
@@ -103,14 +103,10 @@ def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
 
 
 def text_to_textnodes(text):
-    return (
-        split_nodes_image(
-            split_nodes_link(
+    return (split_nodes_delimiter(
                 split_nodes_delimiter(
                     split_nodes_delimiter(
-                        split_nodes_delimiter(
-                    [TextNode(text, TextType.TEXT)], 
-                    "`", TextType.CODE), "_", TextType.ITALIC), "**", TextType.BOLD)
-                )
-            )
-        )
+                        split_nodes_image(
+                            split_nodes_link(
+                                [TextNode(text, TextType.TEXT)])), 
+                                "`", TextType.CODE), "_", TextType.ITALIC), "**", TextType.BOLD))

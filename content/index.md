@@ -1,12 +1,16 @@
 # Tolkien Fan Club
 
-![JRR Tolkien sitting](/images/tolkien.png)
+![JRR Tolkien sitting](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/eWyYRQu-1026x388.png)
 
 Here's the deal, **I like Tolkien**.
 
 > "I am in fact a Hobbit in all but size."
 >
 > -- J.R.R. Tolkien
+
+## Disclaimer
+
+I made this site for a project on Boot.Dev, with content that was given to me. I haven't _actually_ read Lord of the Rings.
 
 ## Blog posts
 

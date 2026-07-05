@@ -2,7 +2,7 @@
 
 [< Back Home](/)
 
-![Tom Bombadil image](/images/tom.png)
+![Tom Bombadil image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/tom.png)
 
 > "Old Tom Bombadil is a merry fellow; bright blue his jacket is, and his boots are yellow. Alas, his merry song may not belong in this plot's prolonged confluence."
 
