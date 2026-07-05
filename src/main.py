@@ -1,6 +1,13 @@
 import os
 import shutil
+import sys
 from functions_2 import *
+
+
+def main():
+    copy_items("static", "docs")
+    generate_pages_recursive("content", "template.html", "docs")
+
 
 def copy_items(directory, target):
     if os.path.exists(target):
@@ -8,7 +15,7 @@ def copy_items(directory, target):
     
     def helper(directory, target, path='./'):
         dir_path = path + directory + "/"
-        target_path = dir_path.replace("static", "public")
+        target_path = dir_path.replace("static", "docs")
         
         for item in os.listdir(dir_path):
             if os.path.isfile(dir_path + item):
@@ -18,6 +25,7 @@ def copy_items(directory, target):
                 helper(item, target, dir_path)
     
     helper(directory, target)
+
 
 def generate_page(from_path, template_path, dest_path):
     print(f"Generating fage from {from_path} to {dest_path} using {template_path}")
@@ -31,16 +39,17 @@ def generate_page(from_path, template_path, dest_path):
     with open(template_path, "r") as file:
         template = file.read()
         filled = template.replace("{{ Title }}", title).replace("{{ Content }}", html)
+        final = filled.replace('href="/', f'href="{basepath}').replace('src="/', f'src="{basepath}')
     
     with open(dest_path, "w") as file:
         if not os.path.exists(dest_path):
             os.makedirs(dest_path, exist_ok=True)
-        file.write(filled)
+        file.write(final)
 
 
 def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
     dir_path = dir_path_content + "/"
-    target_path = dir_path.replace("content", "public")
+    target_path = dir_path.replace("content", "docs")
     
     for item in os.listdir(dir_path):
         if item == "index.md":
@@ -49,5 +58,8 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
             os.makedirs((target_path + item), exist_ok=True)
             generate_pages_recursive(dir_path + item, template_path, target_path)
 
-copy_items("static","public")
-generate_pages_recursive("content", "template.html", "public")
+
+
+
+basepath = sys.argv[1] if len(sys.argv) > 1 else "/"
+main()
