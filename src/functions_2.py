@@ -28,8 +28,10 @@ class BlockType(Enum):
 def block_to_block_type(block):
     lines = block.split("\n")
     
-    if len(lines) == 1 and lines[0][0] == "#":
-        return BlockType.H
+    if len(lines) == 1:
+        hashes = lines[0].split()[0]
+        if len(hashes) < 7 and hashes == "#" * len(hashes):
+            return BlockType.H
     
     if lines [0] == "```" and lines[-1] == "```":
         return BlockType.C
@@ -108,3 +110,11 @@ def list_to_htmlnode(block, tag):
     for line in lines:
         items.append(block_to_htmlnode(line.split(" ", 1)[1], "li"))
     return ParentNode(tag, items)
+
+
+def extract_title(markdown):
+    for block in markdown_to_blocks(markdown):
+        if len(block.split("\n")) == 1 and block[0:2] == "# ":
+            return block[1:].strip()
+    
+    raise Exception("No Title")

@@ -116,7 +116,6 @@ tag here
 This is another paragraph with _italic_ text and `code` here
 
 """
-
         node = markdown_to_html_node(md)
         html = node.to_html()
         self.assertEqual(
@@ -131,7 +130,6 @@ This is text that _should_ remain
 the **same** even with inline stuff
 ```
 """
-
         node = markdown_to_html_node(md)
         html = node.to_html()
         self.assertEqual(
@@ -148,7 +146,6 @@ the **same** even with inline stuff
 2. Two
 3. Three
 """
-
         node = markdown_to_html_node(md)
         html = node.to_html()
         self.assertEqual(
@@ -170,13 +167,13 @@ the **same** even with inline stuff
 
 ###### Six
 """
-
         node = markdown_to_html_node(md)
         html = node.to_html()
         self.assertEqual(
             html,
             "<div><h1>One</h1><h2>Two</h2><h3>Three</h3><h4>Four</h4><h5>Five</h5><h6>Six</h6></div>",
         )
+
 
 
 if __name__ == "__main__":
